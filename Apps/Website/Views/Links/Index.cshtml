@@ -1,0 +1,19 @@
+﻿@model MyHN.Application.LinkDto[]
+@{ 
+    ViewData["Title"] = "Liens publiés";
+}
+
+@if(Model.Length == 0)
+{
+    <p>Aucun lien publié pour le moment. <a asp-action="Create" title="Publier un lien">Publier un nouveau lien</a>.</p>
+} else
+{
+    <ul>
+        @foreach(var link in Model)
+        {
+            <partial name="_LinkItem" model="link" />
+            @* @Html.PartialAsync("_LinkItem", link) *@
+        }
+    </ul>
+}
+

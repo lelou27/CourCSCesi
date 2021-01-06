@@ -1,0 +1,19 @@
+﻿@model MyHN.Application.CreateLinkCommand
+@{
+    ViewData["Title"] = "Ajouter un nouveau lien";
+}
+
+<h1>Publication d'un lien</h1>
+
+<form asp-action="Create" method="post" class="form">
+    <div asp-validation-summary="All" class="alert alert-danger list-group"></div>
+
+    <div>
+        <label asp-for="@Model.Url">Url : </label>
+        <input asp-for="@Model.Url" class="form-control mb-3" />
+        <span asp-validation-for="@Model.Url"></span>
+    </div>
+
+
+    <input type="submit" value="Créer" class="btn btn-outline-dark" />
+</form>

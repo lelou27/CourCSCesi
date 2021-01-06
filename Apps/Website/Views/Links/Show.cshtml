@@ -1,0 +1,22 @@
+﻿@model ShowLinkViewModel
+@{ 
+    ViewData["Title"] = $"Affichage du lien {Model.Link.Url}";
+}
+
+<partial name="_LinkItem" model="@Model.Link" />
+
+@if (Model.Comments.Length == 0)
+{
+    <p>Aucun commentaire pour le moment,
+        <a asp-controller="Links" asp-action="Comment" asp-route-id="@Model.Link.Id ">Ajouter un commentaire</a>
+    </p>
+}
+else
+{
+    <ul>
+        @foreach(var comment in Model.Comments)
+        {
+            <li>@comment.Content</li>
+        }
+    </ul>
+}

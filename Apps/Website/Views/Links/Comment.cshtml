@@ -1,0 +1,8 @@
+﻿@model CommentFormViewModel
+@{
+    ViewData["Title"] = $"Commenter le lien {Model.Link.Url}";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<partial name="_CommentForm" model="@Model.Comment" />

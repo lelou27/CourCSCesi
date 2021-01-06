@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "9QIcNOBB5e77DSxh7vkF7LYxkVDOxNp8vpzZqW6Tn1loyvfty95UEFTTaaI2kDyLyigD/6VsL5KqRIWrdoTWOw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\leandreg\\source\\repos\\myhn\\Application\\Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\leandreg\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

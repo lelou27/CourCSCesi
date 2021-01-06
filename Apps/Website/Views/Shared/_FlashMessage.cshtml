@@ -1,0 +1,8 @@
+﻿@{ 
+    string message = (string)TempData[Website.Controllers.BaseController.FlashMessageKey];
+}
+
+@if(!string.IsNullOrWhiteSpace(message))
+{
+    <p class="alert alert-success text-center">@message</p>
+}
