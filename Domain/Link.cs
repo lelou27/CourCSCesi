@@ -12,16 +12,18 @@ namespace MyHN.Domain
         public Guid Id { get; private set; }
         public string Url { get; }
         public DateTime CreatedAt { get; }
+        public string CreatedBy { get; }
 
         private List<Vote> _votes;
 
         public IReadOnlyList<Vote> Votes => _votes;
         
-        public Link(string url)
+        public Link(string url, string createdBy)
         {
             this.Id = Guid.NewGuid();
             this.Url = url;
             this.CreatedAt = DateTime.UtcNow;
+            this.CreatedBy = createdBy;
             this._votes = new List<Vote>();
         }
 

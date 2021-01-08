@@ -9,7 +9,7 @@
              - <a asp-controller="Links" asp-action="Comment" asp-route-id="@Model.Id">
                     Commenter le lien
                </a> 
-             - Publié le @Model.CreatedAt.ToLongDateString()
+             - Publié le @Model.CreatedAt.ToLongDateString() par @Model.CreatedByName
              - 👍 @Model.UpVotesCount / 👎 @Model.DownVotesCount
         </p>
         <form asp-controller="Links" asp-action="Vote" asp-route-id="@Model.Id" method="post">

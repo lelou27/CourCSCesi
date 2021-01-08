@@ -2,6 +2,7 @@ using System;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,6 +12,8 @@ using MyHN.Application;
 using MyHN.Domain;
 using MyHN.Infrastructure;
 using MyHN.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Website
 {
@@ -26,15 +29,32 @@ namespace Website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<MyHNDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")));
+            services.AddMyHNServices(Configuration).AddUserProvider<HttpUserProvider>();
+
+            /*services.AddDbContext<MyHNDbContext>(options => options.UseSqlite(Configuration.GetConnectionString("Default")));
             services.AddScoped<ILinkRepository, LinkRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IContext, MyHNDbContext>();
+            services.AddScoped<IUserProvider, HttpUserProvider>();*/
 
-            services.AddMediatR(typeof(CreateLinkCommand));
+            services.AddIdentity<IdentityUser, IdentityRole>(options => {
+                options.Password.RequiredLength = options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireDigit = options.Password.RequireLowercase = 
+                    options.Password.RequireNonAlphanumeric = options.Password.RequireUppercase = false;
+            })
+                .AddEntityFrameworkStores<MyHNDbContext>();
+
+            services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, o =>
+            {
+                o.LoginPath = "/Accounts/Login";
+                o.LogoutPath = "/Acounts/Logout";
+            });
+
+            //services.AddMediatR(typeof(CreateLinkCommand));
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add<CustomExceptionFilter>();
+                options.Filters.Add(new AuthorizeFilter());
             });
         }
 
@@ -61,6 +81,18 @@ namespace Website
 
             app.UseRouting();
 
+            /*app.Use(async (context, next) =>
+            {
+                try
+                {
+                    await next();
+                } catch (Exception e)
+                {
+                    context.Response.Redirect("")
+                }
+            });*/
+
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

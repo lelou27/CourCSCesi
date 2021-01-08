@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Api</name>
+    </assembly>
+    <members>
+        <member name="M:Api.Controllers.CommentsController.CreateComment(System.Guid,MyHN.Application.CommentLinkCommand)">
+            <summary>
+            Créer un commentaire sur un lien
+            </summary>
+            <param name="id"></param>
+            <param name="command"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Controllers.LinksController.GetLinks">
+            <summary>
+            Récupère les liens.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Controllers.LinksController.GetLinkById(System.Guid)">
+            <summary>
+            Récupère un lien.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Controllers.LinksController.GetLinksComments(System.Guid)">
+            <summary>
+            Récupère les commentaires des liens.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Controllers.LinksController.UpVote(System.Guid)">
+            <summary>
+            Met un pouce en l'air.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Api.Controllers.LinksController.DownVote(System.Guid)">
+            <summary>
+            Met un pouce en bas.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

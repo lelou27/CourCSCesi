@@ -1,0 +1,41 @@
+﻿@page "/login"
+@inject AccountsClient Accounts
+@inject NotificationManager Notification
+@inject AuthenticationStateProvider AuthStateProvider
+@inject NavigationManager Navigation
+
+<Title Value="Se connecter" />
+<h1>Se connecter</h1>
+
+<EditForm Model="_model" OnValidSubmit="TryLogin">
+    <DataAnnotationsValidator />
+
+    <label>Nom d'utilisateur</label>
+    <InputText @bind-Value="_model.Username" />
+    <ValidationMessage For="@(() => _model.Username)" />
+
+    <label>Mot de passe</label>
+    <InputText type="password" @bind-Value="_model.Password" />
+    <ValidationMessage For="@(() => _model.Password)" />
+
+    <button type="submit">Se connecter</button>
+</EditForm>
+
+@code {
+    private LoginViewModel _model = new LoginViewModel();
+
+    private async Task TryLogin()
+    {
+        try
+        {
+            var token = await Accounts.LoginAsync(_model);
+            ((JwtAuthStateProvider)AuthStateProvider).MarkUserAsAuthenticated(token);
+            Notification.Add("Vous êtes connectés");
+            Navigation.NavigateTo("/");
+        } catch
+        {
+            Notification.Add("Vérifier vos identifiants !");
+
+        }
+    }
+}

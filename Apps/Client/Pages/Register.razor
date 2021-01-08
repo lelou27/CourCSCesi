@@ -1,0 +1,39 @@
+﻿@page "/register"
+@inject AccountsClient Accounts
+@inject NotificationManager Notifications
+@inject NavigationManager Navigation
+
+    <Title Value="Register" />
+<h3>Register</h3>
+
+<EditForm Model="@_model" OnValidSubmit="TryRegister">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <label>Nom d'utilisateur</label>
+    <InputText @bind-Value="_model.Username" />
+    <label>Mot de passe</label>
+    <InputText type="password" @bind-Value="_model.Password" />
+    <label>Retaper le mot de passe</label>
+    <InputText type="password" @bind-Value="_model.ConfirmPassword" />
+
+    <input type="submit" name="submit" value="S'enregistrer">
+</EditForm>
+
+@code {
+    private RegisterViewModel _model = new RegisterViewModel();
+
+    private async Task TryRegister()
+    {
+        try
+        {
+            await Accounts.RegisterAsync(_model);
+            Notifications.Add("Compte créé.");
+            Navigation.NavigateTo("/");
+        } catch(Exception e) 
+        {
+            Console.WriteLine(e.Message);
+            Notifications.Add("Une erreur est survenue.");
+        }
+    }
+}

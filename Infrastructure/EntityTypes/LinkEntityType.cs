@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyHN.Domain;
@@ -13,6 +14,12 @@ namespace MyHN.Infrastructure.EntityTypes
             builder.HasKey(o => o.Id);
             builder.Property(o => o.Url).IsRequired().HasMaxLength(500);
             builder.Property(o => o.CreatedAt).IsRequired();
+
+            builder.HasOne<IdentityUser>()
+                .WithMany()
+                .HasForeignKey(o => o.CreatedBy)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.OwnsMany(o => o.Votes, vote => {
                 vote.ToTable("link_votes");

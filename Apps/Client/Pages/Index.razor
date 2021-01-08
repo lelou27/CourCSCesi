@@ -1,0 +1,32 @@
+﻿@page "/"
+@inject LinksClient Links
+
+<Title Value="Liens publiés" />
+<h1>Liens publiés</h1>
+
+
+@if(_links == null)
+{
+    <p>Chargement en cours</p>
+} else if (_links.Length == 0) {
+    <p>Aucun liens pour le moment :'(</p>
+} else
+{
+    <ul>
+        @foreach(var link in _links)
+        {
+            <li @key="link.Id">
+                <LinkItem Item="@link" /> 
+            </li>
+        }
+    </ul>
+}
+
+@code {
+    private LinkDto[] _links;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _links = (await Links.GetLinksAsync()).ToArray();
+    }
+}

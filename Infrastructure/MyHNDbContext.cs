@@ -1,17 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MyHN.Application;
 using MyHN.Domain;
 using System.Linq;
 
 namespace MyHN.Infrastructure
 {
-    public class MyHNDbContext : DbContext, IContext
+    public class MyHNDbContext : IdentityDbContext, IContext
     {
         public DbSet<Link> Links { get; set; }
         public DbSet<Comment> Comments { get; set; }
 
         IQueryable<Link> IContext.Links => Links;
         IQueryable<Comment> IContext.Comments => Comments;
+        IQueryable<IdentityUser> IContext.Users => Users;
 
         public MyHNDbContext()
         {

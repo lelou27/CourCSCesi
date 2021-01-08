@@ -1,0 +1,35 @@
+﻿@page "/links/{id:guid}"
+@inject LinksClient Links
+
+    <Title Value="Show" />
+@if(_item == null)
+{
+    <p>Chargement</p>
+} else
+{
+    <LinkItem Item="@_item" />
+
+    @if(_comments == null)
+    {
+        <p>Loading</p>
+    } else
+    {
+        @foreach(var comment in _comments)
+        {
+            <p>@comment.Content</p>
+        }
+    }
+}
+
+@code {
+    [Parameter]
+    public Guid Id { get; set; }
+    private LinkDto _item;
+    private ICollection<CommentsDto> _comments;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _item = await Links.GetLinkByIdAsync(Id);
+        _comments = await Links.GetLinksCommentsAsync(Id);
+    }
+}

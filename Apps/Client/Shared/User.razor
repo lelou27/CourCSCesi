@@ -1,0 +1,32 @@
+﻿@*@using System.Security.Claims*@
+
+<AuthorizeView>
+    <Authorized>
+        <p>@context.User.Identity.Name</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>Vous n'êtes pas connecté, <NavLink href="/login">Se connecter</NavLink> </p>
+    </NotAuthorized>
+</AuthorizeView>
+
+@*@if(_user.Identity.IsAuthenticated)
+{
+    <p>@_user.Identity.Name</p>
+} else
+{
+    <p>Vous n'êtes pas connecté, <NavLink href="/login">Se connecter</NavLink> </p>
+}*@
+
+@*@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+    private ClaimsPrincipal _user;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await authenticationState;
+        _user = state.User;
+    }
+
+}*@

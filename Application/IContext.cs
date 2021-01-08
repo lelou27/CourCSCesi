@@ -1,4 +1,5 @@
-﻿using MyHN.Domain;
+﻿using Microsoft.AspNetCore.Identity;
+using MyHN.Domain;
 using System.Linq;
 
 namespace MyHN.Application
@@ -7,5 +8,6 @@ namespace MyHN.Application
     {
         IQueryable<Link> Links { get; }
         IQueryable<Comment> Comments { get; }
+        IQueryable<IdentityUser> Users { get; }
     }
 }

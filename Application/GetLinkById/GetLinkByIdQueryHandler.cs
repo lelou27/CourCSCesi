@@ -23,7 +23,7 @@ namespace MyHN.Application
                 Url = o.Url,
                 UpVotesCount = o.Votes.Count(v => v.Direction == VoteType.Up),
                 DownVotesCount = o.Votes.Count(v => v.Direction == VoteType.Down),
-            }).SingleOrDefault());
+            }).Single());
         }
     }
 }

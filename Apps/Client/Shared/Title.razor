@@ -1,0 +1,11 @@
+﻿@inject IJSRuntime JS
+
+@code {
+    [Parameter]
+    public string Value { get; set; }
+
+    protected override void OnInitialized()
+    {
+        JS.InvokeVoidAsync("setTitle", Value);
+    }
+} 

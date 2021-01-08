@@ -1,0 +1,19 @@
+﻿@inject NotificationManager Notifs
+@implements IDisposable
+
+@foreach(var message in Notifs.Messages)
+{
+    <p>@message</p>
+}
+
+@code { 
+    protected override void OnInitialized()
+    {
+        Notifs.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        Notifs.OnChange -= StateHasChanged;
+    }
+}

@@ -1,0 +1,42 @@
+﻿@page "/links/new"
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Authorization
+@inject LinksClient Links
+@inject NotificationManager Notifications
+@inject NavigationManager Navigation
+@attribute [Authorize]
+
+
+<EditForm Model="@_model" OnValidSubmit="TryCreate">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="@_model.Url" />
+
+    <button type="submit">Créer</button>
+
+</EditForm>
+
+@code {
+    private CreateLink _model = new CreateLink();
+
+    private async Task TryCreate()
+    {
+        await Links.CreateLinkAsync(new CreateLinkCommand()
+        {
+            Url = new Uri(_model.Url),
+        });
+
+        Notifications.Add("Lien ajouté !");
+        Navigation.NavigateTo("/");
+
+    }
+
+    private class CreateLink
+    {
+        [Required]
+        [Url]
+        public string Url { get; set; }
+
+    }
+}

@@ -21,7 +21,7 @@ namespace MyHN.Infrastructure.Repositories
 
         public Link GetById(Guid id)
         {
-            return _context.Links.SingleOrDefault(o => o.Id == id);
+            return _context.Links.Single(o => o.Id == id);
         }
 
         public async Task UpdateAsync(Link link)

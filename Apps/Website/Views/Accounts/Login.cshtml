@@ -1,0 +1,17 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Se connecter";
+}
+
+<h1>@ViewData["Title"]</h1>
+<form asp-action="Login" method="post">
+    <label asp-for="@Model.Username"></label>
+    <input asp-for="@Model.Username" class="form-control" />
+    <span asp-validation-for="@Model.Username"></span>
+
+    <label asp-for="@Model.Password"></label>
+    <input asp-for="@Model.Password" class="form-control" type="password" />
+    <span asp-validation-for="@Model.Password"></span>
+
+    <input type="submit" name="submit" value="Se connecter" class="btn btn-outline-dark" />
+</form>

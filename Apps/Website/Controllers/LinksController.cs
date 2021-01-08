@@ -1,5 +1,6 @@
 ﻿using Domain;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyHn.Application;
 using MyHN.Application;
@@ -40,6 +41,7 @@ namespace Website.Controllers
 
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var linkDtos = await _bus.Send(new GetLinksQuery());
@@ -47,6 +49,7 @@ namespace Website.Controllers
             return View(linkDtos);
         }
 
+        [AllowAnonymous]
         [HttpGet("/{controller}/{id:guid}")]
         public async Task<IActionResult> Show(Guid id)
         {
